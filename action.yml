@@ -1,0 +1,22 @@
+name: Teleport Auth Kubernetes
+author: Gravitational, Inc.
+description: Uses Machine ID to fetch credentials for use with a Kubernetes cluster. Automatically configure `KUBE_CONFIG` environment variable so invocations of `kubectl` and similar tools work as expected.
+inputs:
+    certificate-ttl:
+        description: Specify the length that the generated credentials should be valid for. Defaults to "1h"
+        required: false
+    kubernetes-cluster:
+        description: Specify the name of the Kubernetes cluster in Teleport you wish to connect to.
+        required: true
+    proxy:
+        description: Specify the address of your Teleport Proxy.
+        required: true
+    token:
+        description: Specify the Teleport token to use to join.
+        required: true
+runs:
+    using: node16
+    main: dist/index.js
+branding:
+    color: purple
+    icon: terminal
