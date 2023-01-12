@@ -29,7 +29,7 @@ Pre-requisites:
   Teleport cluster. See
   <https://goteleport.com/docs/kubernetes-access/getting-started/>
 - You must have created a bot with a role with access to your Kubernetes cluster
-  and create a GitHub join token that allows that bot to join.
+  and created a GitHub join token that allows that bot to join.
 - A Linux based runner.
 
 Example usage:
