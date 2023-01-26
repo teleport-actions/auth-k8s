@@ -57,3 +57,8 @@ steps:
   - name: List pods
     run: kubectl get pods
 ```
+
+## Next steps
+
+Read the `teleport-actions/auth-k8s` getting started guide:
+<https://goteleport.com/docs/machine-id/guides/github-actions-kubernetes/>
