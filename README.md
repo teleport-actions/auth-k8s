@@ -35,27 +35,34 @@ Pre-requisites:
 Example usage:
 
 ```yaml
-steps:
-  - name: Install Kubectl
-    uses: azure/setup-kubectl@v3
-  - name: Install Teleport
-    uses: teleport-actions/setup@v1
-    with:
-      version: 11.0.3
-  - name: Authorize against Teleport
-    uses: teleport-actions/auth-k8s@v1
-    with:
-      # Specify the publically accessible address of your Teleport proxy.
-      proxy: tele.example.com:443
-      # Specify the name of the join token for your bot.
-      token: my-github-join-token-name
-      # Specify the length of time that the generated credentials should be
-      # valid for. This is optional and defaults to "1h"
-      certificate-ttl: 1h
-      # Specify the name of the Kubernetes cluster you wish to access.
-      kubernetes-cluster: my-kubernetes-cluster
-  - name: List pods
-    run: kubectl get pods
+on:
+  workflow_dispatch: {}
+jobs:
+  demo-auth-k8s:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - name: Install Kubectl
+        uses: azure/setup-kubectl@v3
+      - name: Install Teleport
+        uses: teleport-actions/setup@v1
+        with:
+          version: 11.0.3
+      - name: Authorize against Teleport
+        uses: teleport-actions/auth-k8s@v1
+        with:
+          # Specify the publically accessible address of your Teleport proxy.
+          proxy: tele.example.com:443
+          # Specify the name of the join token for your bot.
+          token: my-github-join-token-name
+          # Specify the length of time that the generated credentials should be
+          # valid for. This is optional and defaults to "1h"
+          certificate-ttl: 1h
+          # Specify the name of the Kubernetes cluster you wish to access.
+          kubernetes-cluster: my-kubernetes-cluster
+      - name: List pods
+        run: kubectl get pods
 ```
 
 ## Next steps
