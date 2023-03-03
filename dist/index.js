@@ -12364,6 +12364,14 @@ exports.visit = visit;
 exports.visitAsync = visitAsync;
 
 
+/***/ }),
+
+/***/ 4147:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"name":"auth-k8s","version":"1.1.0","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^18.8.2"}}');
+
 /***/ })
 
 /******/ 	});
@@ -12494,14 +12502,22 @@ async function makeTempDirectory() {
 
 
 
+function stringToBool(str) {
+    if (str === '') {
+        return false;
+    }
+    return /^\s*(true|1)\s*$/i.test(str);
+}
 function getSharedInputs() {
     const proxy = core.getInput('proxy', { required: true });
     const token = core.getInput('token', { required: true });
     const certificateTTL = core.getInput('certificate-ttl');
+    const anonymousTelemetry = stringToBool(core.getInput('anonymous-telemetry'));
     return {
         proxy,
         token,
         certificateTTL,
+        anonymousTelemetry,
         debug: core.isDebug(),
     };
 }
@@ -12535,9 +12551,18 @@ async function writeConfiguration(config) {
     await promises_namespaceObject.writeFile(configPath, data);
     return configPath;
 }
-async function execute(configPath) {
+function baseEnvFromSharedInputs(inputs, name, version) {
+    const env = {};
+    env['TELEPORT_ANONYMOUS_TELEMETRY'] = inputs.anonymousTelemetry ? '1' : '0';
+    env['_TBOT_TELEMETRY_HELPER'] = name;
+    env['_TBOT_TELEMETRY_HELPER_VERSION'] = version;
+    return env;
+}
+async function execute(configPath, env) {
     core.info('Invoking tbot with configuration at ' + configPath);
-    await exec.exec('tbot', ['start', '-c', configPath]);
+    await exec.exec('tbot', ['start', '-c', configPath], {
+        env,
+    });
 }
 
 ;// CONCATENATED MODULE: ./src/index.ts
@@ -12545,6 +12570,7 @@ async function execute(configPath) {
 
 
 
+const { version } = __nccwpck_require__(4147);
 function getInputs() {
     return {
         kubernetesCluster: core.getInput('kubernetes-cluster', {
@@ -12566,7 +12592,8 @@ async function run() {
         kubernetes_cluster: inputs.kubernetesCluster,
     });
     const configPath = await writeConfiguration(config);
-    await execute(configPath);
+    const env = baseEnvFromSharedInputs(sharedInputs, 'gha:teleport-actions/auth-k8s', version);
+    await execute(configPath, env);
     core.exportVariable('KUBECONFIG', external_path_default().join(destinationPath, '/kubeconfig.yaml'));
 }
 run().catch(core.setFailed);

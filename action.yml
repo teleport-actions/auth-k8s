@@ -2,6 +2,9 @@ name: Teleport Auth (Kubernetes)
 author: Gravitational, Inc.
 description: Authenticates your workflow so it can use tools like `kubectl` against Kubernetes clusters protected by Teleport.
 inputs:
+    anonymous-telemetry:
+        description: Enables anonymous telemetry. See https://goteleport.com/docs/machine-id/reference/telemetry/ for more information.
+        required: false
     certificate-ttl:
         description: Specify the length that the generated credentials should be valid for. Defaults to "1h"
         required: false

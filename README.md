@@ -61,6 +61,10 @@ jobs:
           certificate-ttl: 1h
           # Specify the name of the Kubernetes cluster you wish to access.
           kubernetes-cluster: my-kubernetes-cluster
+          # Enable submission of anonymous usage telemetry to Teleport.
+          # See https://goteleport.com/docs/machine-id/reference/telemetry/ for
+          # more information.
+          anonymous-telemetry: 1
       - name: List pods
         run: kubectl get pods
 ```
