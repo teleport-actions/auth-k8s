@@ -12370,7 +12370,7 @@ exports.visitAsync = visitAsync;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"auth-k8s","version":"1.1.0","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^18.8.2"}}');
+module.exports = JSON.parse('{"name":"auth-k8s","version":"1.1.1","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^18.8.2"}}');
 
 /***/ })
 
@@ -12553,6 +12553,12 @@ async function writeConfiguration(config) {
 }
 function baseEnvFromSharedInputs(inputs, name, version) {
     const env = {};
+    for (const key in process.env) {
+        const val = process.env[key];
+        if (val) {
+            env[key] = val;
+        }
+    }
     env['TELEPORT_ANONYMOUS_TELEMETRY'] = inputs.anonymousTelemetry ? '1' : '0';
     env['_TBOT_TELEMETRY_HELPER'] = name;
     env['_TBOT_TELEMETRY_HELPER_VERSION'] = version;
