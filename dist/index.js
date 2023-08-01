@@ -12485,7 +12485,7 @@ exports.visitAsync = visitAsync;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"auth-k8s","version":"1.1.3","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^18.8.2"}}');
+module.exports = JSON.parse('{"name":"auth-k8s","version":"1.1.4","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^18.8.2"}}');
 
 /***/ })
 
@@ -12628,11 +12628,13 @@ function getSharedInputs() {
     const token = core.getInput('token', { required: true });
     const certificateTTL = core.getInput('certificate-ttl');
     const anonymousTelemetry = stringToBool(core.getInput('anonymous-telemetry'));
+    const caPins = core.getMultilineInput('ca-pins');
     return {
         proxy,
         token,
         certificateTTL,
         anonymousTelemetry,
+        caPins,
     };
 }
 function baseConfigurationFromSharedInputs(inputs) {
@@ -12642,6 +12644,7 @@ function baseConfigurationFromSharedInputs(inputs) {
         onboarding: {
             join_method: 'github',
             token: inputs.token,
+            ca_pins: inputs.caPins,
         },
         storage: {
             // We use memory storage here so we avoid ever writing the bots more
