@@ -12,7 +12,7 @@
 
 > Read our Documentation: <https://goteleport.com/docs/getting-started/>
 
-# `teleport-actions/auth-k8s`
+# `teleport-actions/auth-k8s@v2`
 
 `auth-k8s` uses Teleport Machine ID to generate an authorized Kubernetes client
 configuration for a specified cluster protected by Teleport.
@@ -23,7 +23,9 @@ requested Kubernetes cluster without additional configuration.
 
 Pre-requisites:
 
-- Teleport 11 or above must be used.
+- **Teleport 14 or above must be used.** Use
+  [`teleport-actions/auth-k8s@v1`](https://github.com/teleport-actions/auth-k8s/tree/v1)
+  for compatability with older versions of Teleport.
 - Teleport binaries must already be installed in the job environment.
 - The Kubernetes cluster you wish to access must already be connected to your
   Teleport cluster. See
@@ -48,9 +50,9 @@ jobs:
       - name: Install Teleport
         uses: teleport-actions/setup@v1
         with:
-          version: 12.1.0
+          version: 14.0.0
       - name: Authorize against Teleport
-        uses: teleport-actions/auth-k8s@v1
+        uses: teleport-actions/auth-k8s@v2
         with:
           # Specify the publically accessible address of your Teleport proxy.
           proxy: tele.example.com:443
