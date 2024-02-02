@@ -15751,7 +15751,7 @@ exports.visitAsync = visitAsync;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"auth-k8s","version":"2.0.0","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^18.8.2"}}');
+module.exports = JSON.parse('{"name":"auth-k8s","version":"2.0.1","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^20.11.16"}}');
 
 /***/ })
 

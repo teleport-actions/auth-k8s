@@ -21,7 +21,7 @@ inputs:
         description: Specify the Teleport token to use to join.
         required: true
 runs:
-    using: node16
+    using: node20
     main: dist/index.js
 branding:
     color: purple
