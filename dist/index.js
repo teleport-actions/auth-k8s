@@ -15751,7 +15751,7 @@ exports.visitAsync = visitAsync;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"auth-k8s","version":"2.0.1","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^20.11.16"}}');
+module.exports = JSON.parse('{"name":"auth-k8s","version":"2.0.2","license":"Apache-2.0","repository":"https://github.com/teleport-actions/auth-k8s.git","scripts":{"build":"ncc build ./src/index.ts -o dist"},"dependencies":{"@actions/core":"^1.10.0","@actions/tool-cache":"^2.0.1"},"private":true,"devDependencies":{"@types/node":"^20.11.16"}}');
 
 /***/ })
 
@@ -15947,6 +15947,12 @@ function baseEnvFromSharedInputs(inputs, name, version) {
     env['TELEPORT_ANONYMOUS_TELEMETRY'] = inputs.anonymousTelemetry ? '1' : '0';
     env['_TBOT_TELEMETRY_HELPER'] = name;
     env['_TBOT_TELEMETRY_HELPER_VERSION'] = version;
+    // Some environment variables are set by our actions and can then end up
+    // being used by a second call to our actions. This causes an error as both
+    // variables for proxy and auth addr can be set and tbot rejects this. Since
+    // we're explicitly configuring tbot, we can remove these variables.
+    delete env['TELEPORT_PROXY'];
+    delete env['TELEPORT_AUTH_SERVER'];
     return env;
 }
 async function execute(configPath, env) {
