@@ -71,6 +71,26 @@ jobs:
         run: kubectl get pods
 ```
 
+## Environment Variables
+
+By default, this action will set the following environment variables:
+
+- `KUBECONFIG`: the path to the generated Kubernetes configuration file.
+
+This will automatically configure tools like `kubectl` to use the generated
+credentials. However, this can cause issues if you intend to invoke `tbot`
+multiple times.
+
+You can disable this behaviour by setting the `disable-env-vars` input to
+`true`.
+
+## Outputs
+
+This action will output the following values:
+
+- `identity-file`: the path to the identity file.
+- `kubeconfig`: the path to the generated Kubernetes configuration file.
+
 ## Next steps
 
 Read the `teleport-actions/auth-k8s` getting started guide:
