@@ -88,6 +88,7 @@ You can disable this behaviour by setting the `disable-env-vars` input to
 
 This action will output the following values:
 
+- `destination-dir`: the path to the tbot destination folder.
 - `identity-file`: the path to the identity file.
 - `kubeconfig`: the path to the generated Kubernetes configuration file.
 
