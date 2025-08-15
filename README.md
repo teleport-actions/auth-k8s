@@ -23,7 +23,7 @@ requested Kubernetes cluster without additional configuration.
 
 Pre-requisites:
 
-- **Teleport 14 or above must be used.** Use
+- **Teleport 16 or above must be used.** Use
   [`teleport-actions/auth-k8s@v1`](https://github.com/teleport-actions/auth-k8s/tree/v1)
   for compatability with older versions of Teleport.
 - Teleport binaries must already be installed in the job environment.
@@ -50,7 +50,10 @@ jobs:
       - name: Install Teleport
         uses: teleport-actions/setup@v1
         with:
-          version: 14.0.0
+          # specify version as "auto" and provide the address of your Teleport
+          # proxy using the "proxy" input.
+          version: auto
+          proxy: tele.example.com:443
       - name: Authorize against Teleport
         uses: teleport-actions/auth-k8s@v2
         with:

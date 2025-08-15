@@ -16004,7 +16004,7 @@ function getInputs() {
     };
 }
 async function run() {
-    await ensureMinimumVersion('14.0.0');
+    await ensureMinimumVersion('16.0.0');
     const inputs = getInputs();
     const sharedInputs = getSharedInputs();
     const config = baseConfigurationFromSharedInputs(sharedInputs);
