@@ -29,7 +29,7 @@ Pre-requisites:
 - Teleport binaries must already be installed in the job environment.
 - The Kubernetes cluster you wish to access must already be connected to your
   Teleport cluster. See
-  <https://goteleport.com/docs/kubernetes-access/getting-started/>
+  <https://goteleport.com/docs/enroll-resources/kubernetes-access/getting-started/>
 - You must have created a bot with a role with access to your Kubernetes cluster
   and created a GitHub join token that allows that bot to join.
 - A Linux based runner.
@@ -98,4 +98,4 @@ This action will output the following values:
 ## Next steps
 
 Read the `teleport-actions/auth-k8s` getting started guide:
-<https://goteleport.com/docs/machine-id/guides/github-actions-kubernetes/>
+<https://goteleport.com/docs/machine-workload-identity/deployment/github-actions/#example-teleport-actionsauth-k8s>
